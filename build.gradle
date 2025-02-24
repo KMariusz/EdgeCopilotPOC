@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.capgemini.edge.copilot'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    playwrightVersion = '1.50.0'
+    assertjVersion = '3.27.3'
+    junitVersion = '5.11.4'
+    lombokVersion = '1.18.36'
+    cucumberVersion = '7.21.1'
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    // https://mvnrepository.com/artifact/org.junit/junit-bom
+    testImplementation platform("org.junit:junit-bom:${junitVersion}")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testImplementation "org.junit.platform:junit-platform-suite"
+
+    // https://mvnrepository.com/artifact/org.assertj/assertj-core
+    implementation "org.assertj:assertj-core:${assertjVersion}"
+
+    // https://mvnrepository.com/artifact/com.microsoft.playwright/playwright
+    implementation "com.microsoft.playwright:playwright:${playwrightVersion}"
+
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-bom
+    testImplementation platform("io.cucumber:cucumber-bom:${cucumberVersion}")
+    testImplementation "io.cucumber:cucumber-java"
+    testImplementation "io.cucumber:cucumber-junit-platform-engine"
+    testImplementation "io.cucumber:cucumber-picocontainer"
+}
+
+test {
+    include '**/TestRunner.class'
+    useJUnitPlatform {}
+
+    systemProperty 'cucumber.execution.parallel.enabled', 'true'
+    systemProperty 'cucumber.execution.parallel.config.fixed.parallelism', System.getProperty('threads', '1')
+    systemProperty 'cucumber.junit-platform.naming-strategy', 'long'
+    systemProperty 'cucumber.filter.tags', System.getProperty('tags', '@Test')
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
