@@ -13,7 +13,7 @@ public class DemoQA_ElementsPage {
     }
 
     private Locator getButtonsListItemLocator() {
-        return this.page.locator(listItemsSelector).nth(5);
+        return this.page.locator(listItemsSelector).nth(4);
     }
 
     public boolean isOpened() {

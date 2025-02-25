@@ -7,7 +7,7 @@ import com.microsoft.playwright.options.AriaRole;
 public class DemoQA_ButtonsPage {
     private final Page page;
     private final String clickMeText = "Click Me";
-    
+
     public DemoQA_ButtonsPage(Page page) {
         this.page = page;
     }
@@ -21,6 +21,6 @@ public class DemoQA_ButtonsPage {
     }
 
     private Locator getButtonWithTextLocator(String text) {
-        return this.page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName(text));
+        return this.page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName(text).setExact(true));
     }
 }

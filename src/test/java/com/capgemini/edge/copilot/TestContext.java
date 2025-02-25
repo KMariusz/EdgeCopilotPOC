@@ -18,8 +18,9 @@ public class TestContext {
     public void setUp() {
         playwright = Playwright.create();
         BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions();
-        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
-        launchOptions.setHeadless(headless).setChannel("msedge");
+        boolean headless = Boolean.parseBoolean(System.getProperty("headless"));
+        double slowMo = Double.parseDouble(System.getProperty("slowMo"));
+        launchOptions.setHeadless(headless).setChannel("msedge").setSlowMo(slowMo);
         browser = playwright.chromium().launch(launchOptions);
         page = browser.newPage();
     }

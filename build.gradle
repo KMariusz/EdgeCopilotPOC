@@ -50,6 +50,8 @@ test {
     systemProperty 'cucumber.execution.parallel.config.fixed.parallelism', System.getProperty('threads', '1')
     systemProperty 'cucumber.junit-platform.naming-strategy', 'long'
     systemProperty 'cucumber.filter.tags', System.getProperty('tags', '@Test')
+    systemProperty 'headless', System.getProperty('headless', 'false')
+    systemProperty 'slowMo', System.getProperty('slowMo', '0')
 }
 
 tasks.withType(JavaCompile) {
